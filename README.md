@@ -6,6 +6,10 @@ The Capstone project for CKME136 Data Analytics related to text prediction. It i
 in collaboration with Swiftkey data.  The goal of this project is to design an application with text prediction capabilities.  
 This report will outline the exploratory analysis of the dataset and the current plans for implementing the text prediction algorithm.
 
+# Problem & Solution
+Typing takes very long time and espetialy in spartphones. Prefered way is to have suggestion system on when start typing word or phrase (simillar to Google and Swiftkey keyboard on Android devices)
+This tool will improved typing speed, pelling and accuracy of writing text on computer or mobile. 
+
 # Description of Data
 The HC Corpora dataset is comprised of the output of comination of news sites, blogs and twitter. 
 1. en_US.blogs.txt
@@ -39,8 +43,11 @@ Application is using HC Corpora Dataset sample to predict the answer. It is scre
  - NgramTable_Datatable.zip
  
 
+
 Shinyapps:
 https://swiftkeycapstoneproject.shinyapps.io/upload/
 
 Repository:
 https://github.com/ebabiche/SwiftKeyCapstoneProject
+
+
