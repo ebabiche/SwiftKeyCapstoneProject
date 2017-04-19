@@ -33,7 +33,11 @@ Application is using HC Corpora Dataset sample to predict the answer. It is scre
 - rpubs.com
 
 # Attached files:
+ - README.md - Info file 
+ - SwiftKey Capstone Project.Rmd (RStudio file with the raw data information and monipulation)
+ - global.R,  server.R & ui.R (Script files for the application that hosted under Shinyapps and was implemented in R)
  - 
+ 
 
 Shinyapps:
 https://swiftkeycapstoneproject.shinyapps.io/upload/
