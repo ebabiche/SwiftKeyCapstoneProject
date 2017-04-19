@@ -24,7 +24,7 @@ shinyUI(fluidPage(
           h3("Other Likely Words"),
           tableOutput("view"),
           
-          h5(tags$a(href="", "RPubs presentation") ),
+          h5(tags$a(href="https://SwiftKeyCapstoneProject.shinyapps.io/SwiftKeyCapstoneProject/", "RPubs presentation") ),
           h5(tags$a(href="https://github.com/ebabiche/SwiftKeyCapstoneProject", "GitHub repository") )
     )
   )
