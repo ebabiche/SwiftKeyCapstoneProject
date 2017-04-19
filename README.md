@@ -50,4 +50,4 @@ https://swiftkeycapstoneproject.shinyapps.io/upload/
 Repository:
 https://github.com/ebabiche/SwiftKeyCapstoneProject
 
-
+https://en.wikipedia.org/wiki/N-gram#n-gram_models
