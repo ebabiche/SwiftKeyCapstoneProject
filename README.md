@@ -11,6 +11,7 @@ The HC Corpora dataset is comprised of the output of comination of news sites, b
 1. en_US.blogs.txt
 2. en_US.twitter.txt
 3. en_US.news.txt
+
 The dataset contains 3 files across four languages (Russian, Finnish, German and English). We will consentrate on English version. 
 
 # Dataset: HC Corpora Dataset
