@@ -1,0 +1,187 @@
+---
+title: "Ryerson CKME136 Winter 2017 - SwiftKey Capstone Project"
+author: "Evgeniy"
+date: "April 19, 2017"
+output: html_document
+---
+
+Ryerson CKME136 Winter 2017 - SwiftKey Capstone Project
+Exploratory Data Analysis 
+Evgeniy - April 2017 
+
+
+### Introduction
+
+Display the exploring data and plan about application and algorithm.
+The data is from a corpus called HC Corpora (www.corpora.heliohost.org). 
+
+### Preparing The Data and Download it 
+
+
+
+#Download the library if required
+if (!require("tm")){
+  install.packages("tm")
+}
+if (!require("RWeka")){
+  install.packages("RWeka")
+}
+if (!require("ggplot2")){
+  install.packages("ggplot2")
+}
+if (!require("NLP")){
+  install.packages("NLP")
+}
+if (!require("dplyr")){
+  install.packages("dplyr")
+}
+if (!require("wordcloud")){
+  install.packages("wordcloud")
+}
+
+
+
+#Download the dataset if required 
+setwd("C:\\Capstone\\")
+dataset_source_url <- "https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip"
+dataset_fullpath <- "Coursera-SwiftKey.zip"
+
+if(!file.exists(dataset_fullpath))
+{
+  download.file(dataset_source_url, dataset_fullpath)
+  unzip(dataset_fullpath)
+}
+{
+    unzip(dataset_fullpath)
+    print("Dataset is ready and unziped!")
+}
+
+#Load the library
+library(tm)
+library(RWeka)
+library(ggplot2)
+library(NLP)
+library(dplyr)
+library(wordcloud)
+options(mc.cores = 1)
+
+#Select only the English language files and list it  
+dataset_dir <- "final/en_US"
+list.files(dataset_dir)
+
+
+#Reading the dataset file
+setwd(dataset_dir)
+blogs <- readLines(con <- file("en_US.blogs.txt", "rb"), encoding = "UTF-8", skipNul = TRUE)
+close(con)
+news <- readLines(con <- file("en_US.news.txt", "rb"), encoding = "UTF-8", skipNul = TRUE)
+close(con)
+twitter <- readLines(con <- file("en_US.twitter.txt", "rb"), encoding = "UTF-8", skipNul = TRUE)
+close(con)
+
+# Words Count
+blogsWordsCount <- sum(sapply(gregexpr("\\S+", blogs), length))
+newsWordsCount <- sum(sapply(gregexpr("\\S+", news), length))
+twitterWordsCount <- sum(sapply(gregexpr("\\S+", twitter), length))
+
+# Lines Count
+blogsLinesCount <- length(blogs)
+newsLinesCount <- length(news)
+twitterLinesCount <- length(twitter)
+
+# Longest line
+blogsMaxChars <- max(nchar(blogs))
+newsMaxChars <- max(nchar(news))
+twitterMaxChars <- max(nchar(twitter))
+
+# Memory usage
+blogsSize <- print(object.size(blogs), quote = FALSE, units = "MB")
+newsSize <- print(object.size(news), quote = FALSE, units = "MB")
+twitterSize <- print(object.size(twitter), quote = FALSE, units = "MB")
+
+
+# Exploratory Summary 
+words <- rbind(twitterWordsCount, blogsWordsCount, newsWordsCount)
+lines <- rbind(twitterLinesCount, blogsLinesCount, newsLinesCount)
+maxchars <- rbind(twitterMaxChars, blogsMaxChars, newsMaxChars)
+objsizes <- round(rbind(twitterSize, blogsSize, newsSize) / 1024^2, 1)
+
+df <- data.frame(c("blogs","news","twitter"))
+df <- data.frame(cbind(df, words, lines, maxchars, objsizes))
+names(df)<-c("Dataset","Words Count","Lines Count","Longest Line Length", "In-Memory Object Size (MB)")
+rownames(df) <- NULL
+
+df
+
+# Sample the data 
+set.seed(123)
+sampling <- 1/100
+
+blogsSample <- sample(blogs, round(sampling * length(blogs)))
+newsSample <- sample(news, round(sampling * length(news)))
+twitterSample <- sample(twitter, round(sampling * length(twitter)))
+rm("blogs","news","twitter")
+
+# Setting the samples in one corpus 
+corpus <- c(blogsSample, newsSample, twitterSample)
+
+
+# Cleaning the dataset (delete Non-ASCII characters)
+corpus <- iconv(corpus, "UTF-8","ASCII","byte") 
+
+
+# Remove all whitespaces / numbers / punctuations / illegal characters non-ASCII
+# Also will covert all text to lowercase 
+
+#suppressMessages(library(tm))
+doc.corpus <- Corpus(VectorSource(corpus))
+doc.corpus <- tm_map(doc.corpus, tolower)
+doc.corpus <- tm_map(doc.corpus, removePunctuation)
+doc.corpus <- tm_map(doc.corpus, removeNumbers)
+doc.corpus <- tm_map(doc.corpus, stripWhitespace)
+doc.corpus <- tm_map(doc.corpus, PlainTextDocument)
+doc.corpus <- Corpus(VectorSource(corpus))
+
+
+# Tokenization (tokenize the data to chunks of words. Tokens will determine how far in a sentence you can go with a N-gram model.)
+unigram_token <- function(x)
+  NGramTokenizer(x, Weka_control(min = 1, max = 1))
+bigram_token <- function(x)
+  NGramTokenizer(x, Weka_control(min = 2, max = 2))
+trigram_token <- function(x)
+  NGramTokenizer(x, Weka_control(min = 3, max = 3))
+
+
+#Convert the corpus to term document matrices (TDMs)
+unigram <- TermDocumentMatrix(doc.corpus, control=list(tokenize=unigram_token))
+bigram <- TermDocumentMatrix(doc.corpus, control=list(tokenize=bigram_token))
+trigram <- TermDocumentMatrix(doc.corpus, control=list(tokenize=trigram_token))
+rm("doc.corpus")
+ 
+#Unigrams
+
+Unifreq <- rowSums(as.matrix(unigram))
+Unifreq <- Unifreq[-grep(profanity_list,(names(Unifreq)))]
+Unifreq <- Unifreq[order(Unifreq, decreasing = TRUE)]
+    
+Uniquant <- quantile(Unifreq,probs=c(0,25,50,75,90,95,99,100)/100)
+Uniquant
+
+
+#Word Clound
+WC <- wordcloud(names(Unifreq), Unifreq, random.order=FALSE, max.words = 100, colors = c("skyblue","steelblue2","steelblue3"))
+WC   
+    
+    
+    
+#GGplot 
+    Unifreq_df <- as.data.frame(Unifreq[1:20])
+    Unigram_bar <- ggplot(data=Unifreq_df, aes(rownames(Unifreq_df),`Unifreq[1:20]`))+
+      geom_bar(stat="identity")+
+      labs("Frequency plot of Unigram Tokens")+
+      xlab("Unigram Token")+
+      ylab("Frequency")+
+    theme(axis.text.x = element_text(angle = 90, hjust = 1))
+    Unigram_bar
+    
+    install.packages("shiny")
