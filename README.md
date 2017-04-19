@@ -1,5 +1,5 @@
 # Ryerson CKME136 - Winter 2017 - SwiftKey Capstone Project
-                  ## Author: Evgeniy | Date: April 2017
+##            Author: Evgeniy | Date: April 2017
 
 # Summary
 The Capstone project for CKME136 Data Analytics: Capstone Course involves using the HC Corpora Dataset. 
