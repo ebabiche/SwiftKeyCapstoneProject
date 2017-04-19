@@ -2,8 +2,8 @@
 ##            Author: Evgeniy | Date: April 2017
 
 # Summary
-The Capstone project for CKME136 Data Analytics: Capstone Course involves using the HC Corpora Dataset. 
-In collaboration with Swiftkey  the goal of this project is to design a shiny application with text prediction capabilities. 
+The Capstone project for CKME136 Data Analytics related to text prediction. It involves HC Corpora Dataset
+in collaboration with Swiftkey  the goal of this project is to design an application with text prediction capabilities. 
 This report will outline the exploratory analysis of the dataset and the current plans for implementing the text prediction algorithm.
 
 # Description of Data
