@@ -44,7 +44,7 @@ Application is using HC Corpora Dataset sample to predict the answer. It is scre
  
 
 
-Shinyapps:
+Swiftkey software running on Shinyapps:
 https://swiftkeycapstoneproject.shinyapps.io/upload/
 
 Repository:
