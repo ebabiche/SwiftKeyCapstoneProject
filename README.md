@@ -7,7 +7,7 @@ in collaboration with Swiftkey data.  The goal of this project is to design an a
 This report will outline the exploratory analysis of the dataset and the current plans for implementing the text prediction algorithm.
 
 # Problem & Solution
-Typing takes very long time and espetialy in spartphones. Prefered way is to have suggestion system on when start typing word or phrase (simillar to Google and Swiftkey keyboard on Android devices)
+Typing takes very long time and espetialy while using spartphones. Prefered way is to have suggestion system (autocomplete) on when start typing word or phrase (simillar to Google and Swiftkey keyboard on Android devices)
 This tool will improved typing speed, pelling and accuracy of writing text on computer or mobile. 
 
 # Description of Data
@@ -22,10 +22,10 @@ The dataset contains 3 files across four languages (Russian, Finnish, German and
 https://d396qusza40orc.cloudfront.net/dsscapstone/dataset/Coursera-SwiftKey.zip
 
 # Data preparation
-The data set was cleaned, tokenized, and n-gramified using a custom process into words, bigrams, trigrams. 
+The data set was cleaned, tokenized, and n-gramified using a custom process into words, bigrams and trigrams. 
 
 # What is the application doing?
-It llows you to enter a custom word or phrase. 
+It allows you to enter a custom word or phrase. 
 Once you click “Submit” it displays the most likely word in text and a list of possible alternatives.
 Application is using HC Corpora Dataset sample to predict the answer. It is screened and processed to removed extraneous characters and then is categorized into the most frequent word combinations (N-grams)
 
