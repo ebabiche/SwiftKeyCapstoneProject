@@ -53,3 +53,6 @@ https://github.com/ebabiche/SwiftKeyCapstoneProject
 
 n-gram models:
 https://en.wikipedia.org/wiki/N-gram#n-gram_models
+
+Tokenization (lexical analysis)
+https://en.wikipedia.org/wiki/Tokenization_%28lexical_analysis%29
